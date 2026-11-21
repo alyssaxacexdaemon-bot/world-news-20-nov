@@ -36,6 +36,8 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
     out = out_dir / "entry.png"
     shutil.copyfile(src, out)
+    if out.stat().st_size != src.stat().st_size:
+        raise SystemExit(f"copy incomplete: {out} is not {src.stat().st_size} bytes")
     print(f"Wrote {out} ({out.stat().st_size} bytes)")
 
 
